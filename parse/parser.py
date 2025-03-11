@@ -9,11 +9,12 @@ import asyncio
 
 
 class Parser:
-    def __init__(self, url, cookie_string):
+    def __init__(self, nickname, cookie_string):
         self._default_time_of_sleep = 7
         
+        self.instagram_url = "https://www.instagram.com/"
         self._posts = []
-        self.url = url
+        self.url = self.instagram_url + nickname
         self.cookie_string = cookie_string     
         
         #Setting up browser below   
@@ -90,8 +91,8 @@ class Parser:
     async def sleep_some_time(self):
         await asyncio.sleep(self._default_time_of_sleep)
     
-    async def main(self, url=None):
-        url = url if url else self.url
+    async def main(self, nickname=None):
+        url = self.instagram_url + nickname if nickname else self.url
         self.driver.get(url)
         self._apply_cookies()
         
